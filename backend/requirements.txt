@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+requests
+simple-salesforce
+
+# Colocaremos langchain, openai, simple-salesforce cuando integremos IA y Salesforce
