@@ -1,13 +1,43 @@
-from typing import List, Dict
+# services/salesforce_client.py
 
-def query_salesforce_accounts(sample_limit: int =3) -> List[Dict]:
+import os
+from simple_salesforce import Salesforce
+from dotenv import load_dotenv
 
+# Cargar variables de entorno (.env)
+load_dotenv()
+
+def connect_salesforce():
     """
-    stub: simulates a consult of salesforce and return  dummy accounts.
-    then we will after replace this stub with a real salesforce client
+    Conecta con Salesforce usando credenciales seguras del .env.
+    Devuelve un objeto Salesforce autenticado.
     """
-    return [
-        {"Name": "Acme Corp", "Industry": "Energy", "Phone": "+1-555-0100"},
-        {"Name": "Globex", "Industry": "Manufacturing", "Phone": "+1-555-0200"},
-        {"Name": "Initech", "Industry": "Tech", "Phone": "+1-555-0300"},
-    ][:sample_limit]
+    try:
+        sf = Salesforce(
+            username=os.getenv("SALESFORCE_USERNAME"),
+            password=os.getenv("SALESFORCE_PASSWORD"),
+            security_token=os.getenv("SALESFORCE_TOKEN"),
+            domain=os.getenv("SALESFORCE_DOMAIN", "login")
+        )
+        return sf
+    except Exception as e:
+        print("Error al conectar con Salesforce:", e)
+        return None
+
+
+def query_salesforce_accounts(limit=5):
+    """
+    Consulta real a Salesforce para traer cuentas.
+    Si no logra conectar, devuelve una lista vacía.
+    """
+    sf = connect_salesforce()
+    if not sf:
+        return []
+
+    try:
+        soql = f"SELECT Name, Industry, Phone FROM Account LIMIT {limit}"
+        result = sf.query(soql)
+        return result.get("records", [])
+    except Exception as e:
+        print("Error al consultar Salesforce:", e)
+        return []
