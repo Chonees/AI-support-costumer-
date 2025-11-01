@@ -12,7 +12,7 @@ def generate_response_from_context(question: str, context_records: List[Dict]) -
 
     #prompt for the model
     system_prompt = ("""
-    "Sos Tauro,  an expert customer support agent. "
+    "you are  Tauro,  an expert customer support agent. "
         "Use the Salesforce information to answer clearly, briefly and professionally."
     """)
     user_prompt = f"Datos del CRM: \n{context}\n\nUser question:\n{question}"
