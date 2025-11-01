@@ -50,7 +50,7 @@ export default function ChatBox() {
     setResponse("");
     // Avoid sending empty strings
     if (!question.trim()) {
-      setError("Por favor, escribe una pregunta.");
+      setError("Please write a question.");
       return;
     }
 
@@ -60,7 +60,7 @@ export default function ChatBox() {
       setResponse(answer);       // 3) Guardamos la respuesta para mostrarla
     } catch (err) {
       // 4) Si falla, guardamos un mensaje de error legible
-      setError("No se pudo obtener respuesta del servidor. ¿Está el backend funcionando?");
+      setError("Could not get response from server. Is the backend running?");
       console.error(err);
     } finally {
       setLoading(false);         // 5) Terminamos el ciclo de carga
@@ -76,12 +76,12 @@ export default function ChatBox() {
           style={styles.textarea}
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          placeholder="Escribe tu pregunta sobre el cliente (ej: '¿Qué cuentas tengo en el sector energético?')"
+          placeholder="Write your question about the client (e.g., 'What accounts do I have in the energy sector?')"
           rows={5}
         />
 
         <button style={styles.button} onClick={handleAsk} disabled={loading}>
-          {loading ? "🚀 Procesando..." : "💬 Enviar"}
+          {loading ? "🚀 Processing..." : "💬 Send"}
         </button>
 
         {error && <div style={styles.error}>{error}</div>}
@@ -103,7 +103,7 @@ export default function ChatBox() {
           transform: displayedText ? 'translateY(0)' : 'translateY(5px)',
           transition: 'all 0.4s ease-out'
         }}>
-          {displayedText || "(Aquí aparecerá la respuesta del asistente AI...)"}
+          {displayedText || "(The AI assistant's response will appear here...)"}
           {isTyping && <span style={styles.cursor}>|</span>}
         </pre>
       </div>
@@ -125,7 +125,6 @@ const styles = {
     backdropFilter: "blur(20px)",
     boxShadow: "0 20px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(136, 136, 136, 0.1)",
     position: "relative",
-    overflow: "hidden",
     minHeight: "400px",
     maxHeight: "80vh",
     display: "flex",
