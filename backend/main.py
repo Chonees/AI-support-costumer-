@@ -42,13 +42,14 @@ async def ask_agent(query: Query):
     try:
         # recibe question and validate with pydantic
         user_question = query.question
-
+        
         # Simulate context crm
-        context = query_salesforce_accounts(sample_limit=3)
+        context = query_salesforce_accounts(limit=3)
         ai_reply = generate_response_from_context(user_question, context)  
 
         # respond to  client
         return {"answer": ai_reply}
+
 
     except Exception as e:
         # if something fails, return HTTP 500 with the detail

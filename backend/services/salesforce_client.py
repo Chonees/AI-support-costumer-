@@ -4,13 +4,13 @@ import os
 from simple_salesforce import Salesforce
 from dotenv import load_dotenv
 
-# Cargar variables de entorno (.env)
+# load variables from .env
 load_dotenv()
 
 def connect_salesforce():
     """
-    Conecta con Salesforce usando credenciales seguras del .env.
-    Devuelve un objeto Salesforce autenticado.
+    connect to Salesforce using secure credentials from .env.
+    Returns an authenticated Salesforce object.
     """
     try:
         sf = Salesforce(
@@ -21,17 +21,18 @@ def connect_salesforce():
         )
         return sf
     except Exception as e:
-        print("Error al conectar con Salesforce:", e)
+        print("error connecting to Salesforce:", e)
         return None
 
 
 def query_salesforce_accounts(limit=5):
     """
-    Consulta real a Salesforce para traer cuentas.
-    Si no logra conectar, devuelve una lista vacía.
+    Query real to Salesforce to get accounts.
+    If it fails to connect, returns an empty list.
     """
     sf = connect_salesforce()
     if not sf:
+        print("Error connecting to Salesforce")
         return []
 
     try:
@@ -39,5 +40,6 @@ def query_salesforce_accounts(limit=5):
         result = sf.query(soql)
         return result.get("records", [])
     except Exception as e:
-        print("Error al consultar Salesforce:", e)
+        print("Error querying Salesforce:", e)
         return []
+        
