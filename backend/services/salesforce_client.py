@@ -25,7 +25,7 @@ def connect_salesforce():
         return None
 
 
-def query_salesforce_accounts(limit=5):
+def query_salesforce_accounts(limit=10):
     """
     Query real to Salesforce to get accounts.
     If it fails to connect, returns an empty list.
