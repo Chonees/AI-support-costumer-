@@ -36,7 +36,7 @@ export default function ChatBox() {
           setIsTyping(false);
           clearInterval(typeInterval);
         }
-      }, 30); // Velocidad de escritura: 30ms por carácter
+      }, 35); // Velocidad de escritura: 30ms por carácter
 
       return () => clearInterval(typeInterval);
     }
